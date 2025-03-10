@@ -1,0 +1,12 @@
+package Imagen;
+
+public class Analizador {
+	private metadata m[];
+	
+	
+	public Analizador() {
+		
+	}
+	
+	
+}

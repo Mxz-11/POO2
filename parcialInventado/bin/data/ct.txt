@@ -1,0 +1,7 @@
+[Equipo: ct
+Personaje: Baldcrescent5, con las armas AK-47 
+Personaje: Jorgy, con las armas AK-47 
+, Equipo: t
+Personaje: Samu, con las armas M4A4 
+Personaje: Fran, con las armas M4A4 
+]

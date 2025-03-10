@@ -1,0 +1,17 @@
+package Imagen;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ColeccionImagenes {
+	private List<Imagen> lista = new ArrayList<>();
+	
+	public ColeccionImagenes() {
+		
+	}
+	
+	public void addImagen(Imagen i) {
+		lista.add(i);
+	}
+	
+}

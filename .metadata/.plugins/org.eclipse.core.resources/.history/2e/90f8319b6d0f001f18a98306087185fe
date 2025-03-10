@@ -1,0 +1,185 @@
+package main;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import FolderStructure.Carpeta;
+import Imagen.ColeccionImagenes;
+import Imagen.Imagen;
+import Imagen.metadata;
+
+public class main {
+	
+	private static void displayImages(File folder) {
+        JFrame imageFrame = new JFrame("Imágenes Seleccionadas");
+        imageFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        DefaultListModel<ImageIcon> imageListModel = new DefaultListModel<>();
+        JList<ImageIcon> imageList = new JList<>(imageListModel);
+        
+        // Obtener archivos de imagen de la carpeta y cargarlos en la lista
+        File[] files = folder.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".gif");
+            }
+        });
+        
+        if (files != null) {
+            for (File file : files) {
+                try {
+                    BufferedImage img = ImageIO.read(file);
+                    if (img != null) {
+                        ImageIcon icon = new ImageIcon(img);
+                        imageListModel.addElement(icon);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        
+        JScrollPane scrollPane = new JScrollPane(imageList);
+        imageFrame.add(scrollPane);
+        imageFrame.pack();
+        imageFrame.setLocationRelativeTo(null); // Centrar la ventana en pantalla
+        imageFrame.setVisible(true);
+    }
+	
+	private static void createAndShowGUI() {
+		JFrame frame = new JFrame("Menú Ejemplo");
+        frame.setSize(1000, 800);
+
+        // Creamos la barra de menú
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setBorder(BorderFactory.createEmptyBorder(0, 400, 0, 50));
+        
+        JButton openButton = new JButton("Seleccionar Carpeta");
+        openButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int result = fileChooser.showOpenDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFolder = fileChooser.getSelectedFile();
+                    displayImages(selectedFolder);
+                }
+            }
+        });
+
+        // Creamos el menú "Archivo"
+        JMenu fileMenu = new JMenu("Coleccion de imagenes");
+
+        fileMenu.addSeparator(); 
+
+        menuBar.add(fileMenu);
+        
+        frame.setJMenuBar(menuBar);
+        frame.add(openButton);
+
+        frame.setVisible(true);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		 /*
+		 * Para las carpetas:
+		 * 
+		 * 
+		 * int nivelesMaximos;
+		 * int carpetasMaximasPorNivel;
+		 * Carpeta carpetas = new Carpeta();
+		 * carpetas.generarCarpetas(nivelesMaximos, carpetasMaximasPorNivel);
+		 */
+		
+		/*
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});*/
+		
+		metadata a = new metadata();
+		try {
+			a.setMetadata("./prueba.jpg");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(a.getMake() + a.getAlto() + a.getAncho() + a.getFecha());
+		
+		//Scanner s = new Scanner(System.in);
+		//Carpeta c = new Carpeta();
+		//Imagen i = new Imagen("data");
+		//i.creaImagen("tostus.png");
+		
+		/*while(true) {
+			System.out.println("Menú: ");
+			System.out.println("1. Crear carpetas en el directorio /data");
+			System.out.println("2. Crear imagen");
+			System.out.println("3. ");
+			
+			System.out.println("X. Salir");
+			System.out.println("Seleccione una opción: ");
+
+			String opcion = s.nextLine();
+			System.out.print("\033[H\033[2J");
+			System.out.flush();
+			
+			switch (opcion) {
+				case "1":
+					System.out.println("Introduzca el numero de niveles (subcarpetas)");
+					int numNiveles = s.nextInt();
+					System.out.println("Introduzca el numero de carpetas que podrá albergar cada nivel");
+					int carpetasXNivel = s.nextInt();
+					Carpeta.generarCarpetas(numNiveles, carpetasXNivel);
+					System.out.print("\033[H\033[2J");
+					System.out.flush();
+					break;
+				case "2":
+					//System.out.println("Introduzca el nombre de la carpeta");
+					//String r = s.nextLine();	
+					Imagen i = new Imagen();
+					col.addImagen(i);
+					System.out.println("Introduzca el ancho y alto de la imagen a generar");
+					int ancho = s.nextInt();
+					int alto = s.nextInt();
+					
+					i.creaImagen();
+					System.out.println("Se ha creado correctamente la imagen");
+					
+					break;
+				case "X":
+					System.exit(0);
+				default:
+					System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+				
+			}
+		}*/
+	}
+
+}
